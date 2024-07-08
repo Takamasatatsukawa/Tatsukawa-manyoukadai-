@@ -5,12 +5,15 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクを登録した場合' do
       it '登録したタスクが表示される' do
          # テストで使用するためのタスクを登録
-         Task.create!(title: '書類作成', content: '企画書を作成する。')
-         FactoryBot.create(:task)
+         #Task new.(title: '書類作成', content: '企画書を作成する。')
+         #FactoryBot.create(:task)
          # タスク一覧画面に遷移
-         visit tasks_path
+         visit new_tasks_path
+         fill_in 'task[title]', with: "こんにtは"
+         click_button "作成"
+
          # visit（遷移）したpage（この場合、タスク一覧画面）に"書類作成"という文字列が、have_content（含まれていること）をexpect（確認・期待）する
-         expect(page).to have_content '書類作成'
+         expect(page).to have_content 'こんにちは'
          # expectの結果が「真」であれば成功、「偽」であれば失敗としてテスト結果が出力される
       end
     end
