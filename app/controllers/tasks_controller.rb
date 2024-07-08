@@ -26,7 +26,7 @@ def show
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      redirect_to tasks_path(@task.id), notice: "Task was successfully updated."
+      redirect_to @task, notice: "Task was successfully updated."
     else
       render :edit
     end
