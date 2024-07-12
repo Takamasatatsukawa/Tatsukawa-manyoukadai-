@@ -1,4 +1,5 @@
-<h1><%= action_name == 'new' ? '新しいタスクを作成' : 'Edit Task Page' %></h1>
+<h1><%= t("views.tasks.edit.edit task") %></h1>
+
 <%= form_with(model: @task, local: true) do |form| %>
     <% if @task.errors.any? %>
     <div id="error_explanation">
@@ -12,17 +13,17 @@
   <% end %>
   
     <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+     <%= form.label :title, t("views.tasks.edit.title")%>
+     <%= form.text_field :title %>
     </div>
-    <div>
-    <%= form.label :content %>
+    <div class="field">
+    <%= form.label :content, t("views.tasks.edit.content")%>
     <%= form.text_area :content %>
     </div>
-    <div>
-    <%= form.submit 'Update Task', id: 'update-task' %>
+    <div class="actions">
+    <%= form.submit t("views.tasks.edit.update task"), id: 'update-task' %>
     </div>
-  <% end %>
-  
+   <% end %>
 
-<%= link_to 'Back', tasks_path, id: 'back' %>
+
+<%= link_to t("views.tasks.edit.back"), tasks_path, id: 'back' %>

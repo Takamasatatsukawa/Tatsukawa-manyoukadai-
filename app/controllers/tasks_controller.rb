@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
     def index
-      @tasks = Task.all
+      @tasks = Task.order(created_at: :desc).page(params[:page]).per(10)
+      # @tasks = Task.all
+      # @tasks = Task.order(created_at: :desc) # 作成日時の降順でソート
 end
 def show
     @task = Task.find(params[:id])
@@ -13,7 +15,7 @@ def show
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to tasks_path(@task.id), notice: "Task was successfully created."
+      redirect_to tasks_path(@task.id), notice: t('flash.tasks.create.success')
     else
       render :new
     end
@@ -26,7 +28,7 @@ def show
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      redirect_to @task, notice: "Task was successfully updated."
+      redirect_to @task, notice: t('flash.tasks.update.success')
     else
       render :edit
     end
@@ -35,7 +37,7 @@ def show
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    redirect_to tasks_path, notice: "Task was successfully destroyed."
+    redirect_to tasks_path, notice: t('flash.tasks.destroy.success')
   end
 
   private

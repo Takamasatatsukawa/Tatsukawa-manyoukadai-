@@ -10,6 +10,10 @@ module CdpWebManyoTask
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+    
+    require 'kaminari'
+    # デフォルトのタイムゾーンを設定
+    config.time_zone = 'Tokyo' # 例として東京タイムゾーンを設定
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -26,5 +30,6 @@ module CdpWebManyoTask
         controller_specs: false,
         request_specs: false
     end
+    config.i18n.default_locale = :ja
   end
 end
