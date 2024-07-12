@@ -12,8 +12,8 @@ require 'faker'
 Task.delete_all
 
 # 50件のタスクデータを生成
-50.times do
-  FactoryBot.create(:task)
+50.times do |i|
+  Task.create(title: "aaa#{i}", content: "bbb#{i}")
 end
 
 puts "50件のタスクデータを投入しました。"
