@@ -1,11 +1,8 @@
-<!-- app/views/tasks/show.html.erb -->
+<h1><%= t("views.tasks.show.show task") %></h1>
 
-<h1 id="show-task-page">Show Task Page</h1>
+<p id="task-title"><strong><%= t('views.tasks.show.title') %>:</strong> <%= @task.title %></p>
+<p id="task-content"><strong><%= t('views.tasks.show.content') %>:</strong> <%= @task.content %></p>
+<p id="task-created-at"><strong><%= t('views.tasks.show.created_at') %>:</strong> <%= @task.created_at_in_time_zone.strftime('%Y/-%m/-%d %H:%M:%S %Z') %></p>
 
-<p id="task-title"><strong>Title:</strong> <%= @task.title %></p>
-<p id="task-content"><strong>Content:</strong> <%= @task.content %></p>
-<p id="task-created-at"><strong>Created_at:</strong> <%= @task.created_at.utc.strftime("%Y-%m-%d %H:%M:%S UTC") %></p>
-
-<%= link_to 'Edit', edit_task_path(@task), id: 'edit-task' %>
-<%= link_to 'Back', tasks_path, id: 'back' %>
-
+<%= link_to t('views.tasks.show.edit'), edit_task_path(@task), id: 'edit-task' %>
+<%= link_to t('views.tasks.show.back'), tasks_path, id: 'back' %>

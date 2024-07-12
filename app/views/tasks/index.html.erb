@@ -1,11 +1,12 @@
-<h1>Tasks Index Page</h1>
+
+<h1><%= t("activerecord.attributes.task.tasks index") %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Created_at</th>
+    <th><%= t("activerecord.attributes.task.title") %></th>
+    <th><%= t("activerecord.attributes.task.content") %></th>
+    <th><%= t("activerecord.attributes.task.created_at") %></th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -14,13 +15,16 @@
     <tr>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
-        <td><%= task.created_at.utc.strftime("%Y-%m-%d %H:%M:%S UTC") %></td>
+        <td><%= task.created_at_in_time_zone.strftime('%Y/-%m/-%d %H:%M:%S %Z') %></td>
         <td>
-          <%= link_to 'Show', task_path(task), class: 'show-task' %>
-          <%= link_to 'Edit', edit_task_path(task), class: 'edit-task' %>
-          <%= link_to 'Destroy', task_path(task), class: 'destroy-task', method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to t("activerecord.attributes.task.show"), task_path(task), class: 'show-task' %>
+          <%= link_to t("activerecord.attributes.task.edit"), edit_task_path(task), class: 'edit-task' %>
+          <%= link_to t("activerecord.attributes.task.destroy"), task_path(task), class: 'destroy-task', method: :delete, data: { confirm: t("activerecord.attributes.task.confirm_delete") } %>
         </td>
     </tr>
    <% end %>
   </tbody>
 </ul>
+</table>
+
+<%= paginate @tasks %>

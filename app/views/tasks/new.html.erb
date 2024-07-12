@@ -1,9 +1,31 @@
-<!-- app/views/tasks/new.html.erb -->
+<h1><%= t("views.tasks.new.new task") %></h1>
 
-<h1>New Task Page</h1>
+<%= form_with(model: @task, local: true) do |form| %>
+    <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@task.errors.count, "error") %> <%= t('views.tasks.new.prohibited') %></h2>
+      <ul>
+        <% @task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
 
+  <div class="field">
+    <%= form.label :title, t('views.tasks.new.title') %>
+    <%= form.text_field :title %>
+  </div>
+  <div class="field">
+    <%= form.label :content, t('views.tasks.new.content') %>
+    <%= form.text_area :content %>
+  </div>
+  <div class="actions">
+    <%= form.submit t('views.tasks.new.create task'), id: 'create-task' %>
+  </div>
 
-<%= render 'form', task: @task %>
+  
+<% end %>
 
-<%= link_to 'Back to Tasks', tasks_path, id: 'back' %>
+<%= link_to t('views.tasks.new.back'), tasks_path, id: 'back' %>
