@@ -1,21 +1,41 @@
 
 <h1><%= t("activerecord.attributes.task.tasks index") %></h1>
 
+<%= form_with url: tasks_path, method: :get, scope: :search, local: true do |form| %>
+  <div>
+    <%= form.label :title, "タイトル" %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :status, "ステータス" %>
+    <%= form.select :status, options_for_select(Task.statuses.keys.map { |status| [I18n.t("enums.task.status.#{status}"), status] }, selected: params.dig(:search, :status)), include_blank: true %>
+  </div>
+  <div>
+    <%= form.submit "検索", id: "search_task" %>
+  </div>
+<% end %>
+
 <table>
   <thead>
     <tr>
-    <th><%= t("activerecord.attributes.task.title") %></th>
-    <th><%= t("activerecord.attributes.task.content") %></th>
-    <th><%= t("activerecord.attributes.task.created_at") %></th>
-      <th>Actions</th>
+    <th><%= link_to t("activerecord.attributes.task.title"), tasks_path %></th>
+    <th><%= link_to t("activerecord.attributes.task.content"), tasks_path %></th>
+    <th><%= link_to t("activerecord.attributes.task.created_at"), tasks_path %></th>
+    <th><%= link_to t("activerecord.attributes.task.deadline_on"), tasks_path(sort_deadline_on: true) %></th>
+    <th><%= link_to t("activerecord.attributes.task.priority"), tasks_path(sort_by: 'priority') %></th>
+    <th><%= t("activerecord.attributes.task.status") %></th>
+   <th>Actions</th>
     </tr>
   </thead>
   <tbody>
    <% @tasks.each do |task| %>
-    <tr>
-        <td><%= task.title %></td>
+    <tr class="task"> 
+        <td class="task_title"><%= task.title %></td>
         <td><%= task.content %></td>
         <td><%= task.created_at_in_time_zone.strftime('%Y/-%m/-%d %H:%M:%S %Z') %></td>
+        <td><%= task.deadline_on %></td>
+        <td><%= I18n.t("enums.task.priority.#{task.priority}") %></td>
+        <td><%= I18n.t("enums.task.status.#{task.status}") %></td>
         <td>
           <%= link_to t("activerecord.attributes.task.show"), task_path(task), class: 'show-task' %>
           <%= link_to t("activerecord.attributes.task.edit"), edit_task_path(task), class: 'edit-task' %>
@@ -24,7 +44,6 @@
     </tr>
    <% end %>
   </tbody>
-</ul>
 </table>
 
 <%= paginate @tasks %>
