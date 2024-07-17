@@ -53,7 +53,7 @@ class TasksController < ApplicationController
     if params[:sort_deadline_on]
       { deadline_on: :asc }
     elsif params[:sort_by] == 'priority'
-      { priority: :desc }
+      { priority: :desc, created_at: :desc  }
     else
       { created_at: :desc }
     end
