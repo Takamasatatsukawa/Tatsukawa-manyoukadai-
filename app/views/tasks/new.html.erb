@@ -28,13 +28,13 @@
 
   <div class="field">
     <%= form.label :priority, t("activerecord.attributes.task.priority") %>
-    <%= form.select :priority, options_for_select(Task.priorities.keys.map { |k| [I18n.t("enums.task.priority.#{k}"), k] }, selected: nil) %>
-  </div>
+    <%= form.select :priority, options_for_select(Task.priorities.keys.map { |k| [I18n.t("enums.task.priority.#{k}"), k] }, selected: nil), include_blank: true %>
+    </div>
 
   <div class="field">
     <%= form.label :status, t("activerecord.attributes.task.status") %>
-    <%= form.select :status, options_for_select(Task.statuses.keys.map { |k| [I18n.t("enums.task.status.#{k}"), k] }, selected: nil) %>
-  </div>
+    <%= form.select :status, options_for_select(Task.statuses.keys.map { |k| [I18n.t("enums.task.status.#{k}"), k] }, selected: nil), include_blank: true %>
+    </div>
 
   <div class="actions">
     <%= form.submit t('views.tasks.new.create task'), id: 'create-task' %>
