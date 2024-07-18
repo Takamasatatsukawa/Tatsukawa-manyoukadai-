@@ -17,11 +17,23 @@
      <%= form.text_field :title %>
     </div>
     <div class="field">
-    <%= form.label :content, t("views.tasks.edit.content")%>
-    <%= form.text_area :content %>
+     <%= form.label :content, t("views.tasks.edit.content")%>
+     <%= form.text_area :content %>
+    <div class="field">
+     <%= form.label :deadline_on, t("activerecord.attributes.task.deadline_on") %>
+     <%= form.date_field :deadline_on %>
     </div>
-    <div class="actions">
-    <%= form.submit t("views.tasks.edit.update task"), id: 'update-task' %>
+    <div class="field">
+     <%= form.label :priority, t("activerecord.attributes.task.priority") %>
+     <%= form.select :priority, options_for_select(Task.priorities.keys.map { |k| [I18n.t("enums.task.priority.#{k}"), k] }, selected: @task.priority) %>
+    </div>
+    <div class="field">
+     <%= form.label :status, t("activerecord.attributes.task.status") %>
+     <%= form.select :status, options_for_select(Task.statuses.keys.map { |k| [I18n.t("enums.task.status.#{k}"), k] }, selected: @task.status) %>
+    </div>
+    </div>
+     <div class="actions">
+     <%= form.submit t("views.tasks.edit.update task"), id: 'update-task' %>
     </div>
    <% end %>
 
