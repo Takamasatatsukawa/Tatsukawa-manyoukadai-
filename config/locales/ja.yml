@@ -1,12 +1,43 @@
 ja: 
+ activerecord:
+    models:
+      task: "タスク"
+      index: "一覧画面"
+      show: "詳細"
+      new: "登録"
+    attributes: 
+      task:
+        tasks index: "タスク一覧ページ"
+        title: "タイトル"
+        content: "内容"
+        created_at: "作成日時"
+        deadline_on: "終了期限"
+        priority: "優先度"
+        status: "ステータス"
+        show: "詳細"
+        edit: "編集"
+        destroy: "削除"
+        confirm_delete: "本当に削除してもよろしいですか？"
+    errors:
+     models:
+        task:
+          attributes:
+            deadline_on:
+              blank: "終了期限を入力してください"
+            priority:
+              blank: "優先度を入力してください"
+            status:
+              blank: "ステータスを入力してください"
  errors:
-    format: "%{attribute}%{message}"
+    format: "%{message}"
     messages:
       blank: "を入力してください"
       invalid: "は無効です"
       too_short: "は%{count}文字以上で入力してください"
       too_long: "は%{count}文字以下で入力してください"
       taken: "はすでに存在します"
+      record_invalid: "レコードの検証に失敗しました"
+
 
  flash:
     tasks:
@@ -26,27 +57,21 @@ ja:
   tasks_index: "タスク一覧"
   new_task: "タスクを登録する"
 
- activerecord:
-    models:
-      task: "タスク"
-      index: "一覧画面"
-      show: "詳細"
-      new: "登録"
-    attributes: 
-      task:
-        tasks index: "タスク一覧ページ"
-        title: "タイトル"
-        content: "内容"
-        created_at: "作成日時"
-        show: "詳細"
-        edit: "編集"
-        destroy: "削除"
-        confirm_delete: "本当に削除してもよろしいですか？"
 
+ enums:
+    task:
+      priority:
+        high: "高"
+        medium: "中"
+        low: "低"
+      status:
+        todo: "未着手"
+        in_progress: "着手中"
+        done: "完了"
  views:
    tasks:
       new:
-        new task: "タスク登録ページ"
+        new_task: "タスク登録ページ"
         title: "タイトル"
         content: "内容"
         create task: "登録する"
