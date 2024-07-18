@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CdpWebManyoTask</title>
+    <title>MyApp</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,12 +11,17 @@
 
   <body>
    <header>
-      <nav>
-        <ul>
-          <li><%= link_to t('navigation.tasks_index'), tasks_path, id: 'tasks-index' %></li>
-          <li><%= link_to t('navigation.new_task'), new_task_path, id: 'new-task' %></li>
-        </ul>
-      </nav>
+      # <nav>
+      #   <ul>
+      #     <li><%= link_to t('navigation.tasks_index'), tasks_path, id: 'tasks-index' %></li>
+      #     <li><%= link_to t('navigation.new_task'), new_task_path, id: 'new-task' %></li>
+      #   </ul>
+      # </nav>
+      <% if session[:user_id] %>
+        <%= link_to 'Logout', logout_path, method: :delete %>
+      <% else %>
+        <%= link_to 'Login', login_path %>
+      <% end %>
     </header>
     <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "#{key}") %>
