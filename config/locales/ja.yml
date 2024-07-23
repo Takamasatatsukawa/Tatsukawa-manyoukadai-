@@ -1,10 +1,11 @@
-ja: 
- activerecord:
+ja:
+  activerecord:
     models:
       task: "タスク"
       index: "一覧画面"
       show: "詳細"
       new: "登録"
+      user: "ユーザー"
     attributes: 
       task:
         tasks index: "タスク一覧ページ"
@@ -18,8 +19,13 @@ ja:
         edit: "編集"
         destroy: "削除"
         confirm_delete: "本当に削除してもよろしいですか？"
+      user:
+        name: "名前"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認）"
     errors:
-     models:
+      models:
         task:
           attributes:
             deadline_on:
@@ -28,18 +34,30 @@ ja:
               blank: "優先度を入力してください"
             status:
               blank: "ステータスを入力してください"
- errors:
+        user:
+          attributes:
+            name:
+              blank: "名前を入力してください"
+            email:
+              blank: "メールアドレスを入力してください"
+              taken: 'メールアドレスはすでに使われています'
+            password:
+              blank: "パスワードを入力してください"
+              too_short: "パスワードは6文字以上で入力してください"
+            password_confirmation:
+              blank: "パスワード（確認）を入力してください"
+              confirmation: "パスワード（確認）とパスワードの入力が一致しません"
+  errors:
     format: "%{message}"
     messages:
-      blank: "を入力してください"
+      blank: "このフィールドは必須です"
       invalid: "は無効です"
       too_short: "は%{count}文字以上で入力してください"
       too_long: "は%{count}文字以下で入力してください"
       taken: "はすでに存在します"
       record_invalid: "レコードの検証に失敗しました"
 
-
- flash:
+  flash:
     tasks:
       create:
         success: "タスクを登録しました"
@@ -50,15 +68,14 @@ ja:
       destroy:
         success: "タスクを削除しました"
         failure: "タスクの削除に失敗しました"
- confirm:
-   delete: "本当に削除してよろしいですか？"
+  confirm:
+    delete: "本当に削除してよろしいですか？"
 
- navigation:
-  tasks_index: "タスク一覧"
-  new_task: "タスクを登録する"
+  navigation:
+    tasks_index: "タスク一覧"
+    new_task: "タスクを登録する"
 
-
- enums:
+  enums:
     task:
       priority:
         high: "高"
@@ -68,25 +85,25 @@ ja:
         todo: "未着手"
         in_progress: "着手中"
         done: "完了"
- views:
-   tasks:
+
+  views:
+    tasks:
       new:
         new_task: "タスク登録ページ"
         title: "タイトル"
         content: "内容"
-        create task: "登録する"
+        create_task: "登録する"
         back: "戻る"
       show: 
-        show task: "タスク詳細ページ"
+        show_task: "タスク詳細ページ"
         title: "タイトル"
         content: "内容"
         created_at: "作成日時"
         edit: "編集"
         back: "戻る"   
       edit:
-        edit task: "タスク編集ページ"
+        edit_task: "タスク編集ページ"
         title: "タイトル"
         content: "内容"
-        update task: "更新する"
+        update_task: "更新する"
         back: "戻る"
-        

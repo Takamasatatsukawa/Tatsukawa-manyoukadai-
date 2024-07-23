@@ -1,18 +1,21 @@
 Rails.application.routes.draw do
-  root 'tasks#index' 
+  # ログイン関連のルーティング
+  get 'login', to: 'sessions#new', as: 'new_session'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
 
-  resources :tasks do
-    collection do
-      get 'sort'
-    end
+  # アカウント関連のルーティング
+  get 'signup', to: 'users#new', as: 'new_user'
+  resources :users, only: [:create, :update, :destroy, :show, :edit]
+
+  # 管理者用のルーティング
+  namespace :admin do
+    resources :users
   end
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-resources :tasks, only: [:index, :new, :create, :show, :edit, :update, :destroy]
 
+  # タスクのルーティング
+  resources :tasks, only: [:index, :new, :create, :show, :edit, :update, :destroy]
 
-get 'login', to: 'sessions#new'
-post 'login', to: 'sessions#create'
-delete 'logout', to: 'sessions#destroy'
-
-resources :users
+  # ルートの定義
+  root 'tasks#index'
 end
