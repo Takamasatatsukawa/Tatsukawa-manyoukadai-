@@ -8,7 +8,7 @@
   <%= f.password_field :password %>
   <%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %>
-  <h2><%= f.submit "更新する" %></h2>
+  <h2><%= f.submit "更新する", id: 'update-user' %></h2>
 <% end %>
 
 <% if @user.errors.any? %>
