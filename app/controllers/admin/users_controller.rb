@@ -40,7 +40,9 @@ module Admin
         if @user.destroy
            redirect_to admin_users_path, notice: 'ユーザを削除しました'
         else
-           redirect_to admin_users_path, alert: @user.errors.full_messages.to_sentence
+          #  redirect_to admin_users_path, alert: @user.errors.full_messages.to_sentence
+          flash[:alert] = @user.errors.full_messages.join(', ')
+          redirect_to admin_users_path
         end
       end
   

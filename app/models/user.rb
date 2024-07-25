@@ -1,6 +1,7 @@
 class User < ApplicationRecord
     has_secure_password
-
+   
+    before_update :ensure_an_admin_remains_on_update
     has_many :tasks, dependent: :destroy
 
     before_save :downcase_email
@@ -11,9 +12,9 @@ class User < ApplicationRecord
     #validates :password_confirmation, presence: true, if: -> { new_record? || password.nil? }
     #validate :password_confirmation_matches
     
-    validate :ensure_an_admin_remains, on: :update
+    validate :ensure_an_admin_remains_on_update, on: :update
+    before_destroy :ensure_an_admin_remains_on_destroy
     
-    before_destroy :ensure_an_admin_remains
     
     private
 
@@ -29,18 +30,18 @@ class User < ApplicationRecord
     end
   end
 
-  def ensure_an_admin_remains
+  def ensure_an_admin_remains_on_destroy
     if User.where(admin: true).count == 1 && self.admin?
       errors.add(:base, '管理者が0人になるため削除できません')
       throw(:abort)
     end
   end
 
-    def ensure_an_admin_remains
-      if User.where(admin: true).count == 1 && self.admin_was && !self.admin
-        errors.add(:base, '管理者が0人になるため権限を変更できません')
-        throw(:abort)
-      end
+  def ensure_an_admin_remains_on_update
+    if User.where(admin: true).count == 1 && self.admin_was && !self.admin
+      errors.add(:base, '管理者が0人になるため権限を変更できません')
+      throw(:abort)
     end
+  end
 end
   

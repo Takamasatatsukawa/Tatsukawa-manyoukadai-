@@ -1161,16 +1161,13 @@ RSpec.describe 'step4', type: :system do
         find('input[name="session[password]"]').set(admin.password)
         click_button 'ログイン'
         sleep 0.5
-        puts page.body
       end
       it '管理者が一人しかいない状態でそのユーザを削除しようとした場合、モデルのコールバックを使って削除できないよう制御し、「管理者が0人になるため削除できません」というフラッシュメッセージを表示させること' do
         visit admin_users_path
         sleep 0.5
-        puts page.body
         expect(page).to have_content 'ユーザ一覧' 
         click_link '削除', href: admin_user_path(admin)
         sleep 0.5
-        page.driver.browser.switch_to.alert.accept
         expect(page).to have_content '管理者が0人になるため削除できません'
       end
     end
