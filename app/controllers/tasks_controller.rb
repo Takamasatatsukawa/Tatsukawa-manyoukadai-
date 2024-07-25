@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.page(params[:page]).per(10)
+    @tasks = current_user.tasks.page(params[:page]).per(10)
                   # .default_order
                   .sorted_by(sort_params)
                   .search_by_title(params.dig(:search, :title))
