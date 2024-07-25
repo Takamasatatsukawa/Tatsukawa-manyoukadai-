@@ -33,8 +33,8 @@
         <td><%= task.content %></td>
         <td><%= task.created_at %></td>
         <td><%= task.deadline_on %></td>
-        <td><%= Task.priorities.key(task.priority) %></td>
-        <td><%= Task.statuses.key(task.status) %></td>
+        <td><%= t("enums.task.priority.#{task.priority}") %></td>
+        <td><%= t("enums.task.status.#{task.status}") %></td>
       </tr>
     <% end %>
   </tbody>

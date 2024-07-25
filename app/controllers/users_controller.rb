@@ -35,11 +35,20 @@ class UsersController < ApplicationController
     end
   end
 
+  # def destroy
+  #   @user = User.find(params[:id])
+  #   @user.destroy
+  #   session[:user_id] = nil
+  #   redirect_to root_path, notice: 'アカウントが削除されました'
+  # end
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-    session[:user_id] = nil
-    redirect_to root_path, notice: 'アカウントが削除されました'
+    if @user.destroy
+      session[:user_id] = nil if current_user?(@user)
+      redirect_to admin_users_path, notice: 'ユーザーを削除しました'
+    else
+      flash[:alert] = @user.errors.full_messages.join(', ')
+      redirect_to admin_users_path
+    end
   end
 
   private

@@ -1,8 +1,8 @@
 class Task < ApplicationRecord 
+  
   belongs_to :user
-
-  enum priority: { low: 0, medium: 1, high: 2 }
-  enum status: { todo: 0, in_progress: 1, done: 2 }
+   enum priority: { low: 0, medium: 1, high: 2 }
+   enum status: { todo: 0, in_progress: 1, done: 2 }
   
   scope :search_by_title, -> (title) { where("title LIKE ?", "%#{title}%") if title.present? }
   scope :search_by_status, -> (status) { where(status: status) if status.present? }

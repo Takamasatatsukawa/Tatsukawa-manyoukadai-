@@ -6,8 +6,8 @@ class User < ApplicationRecord
     before_save :downcase_email
 
     validates :name, presence: { message: '名前を入力してください' }
-    validates :email, presence: { message: 'メールアドレスを入力してください' }, uniqueness: { message: 'メールアドレスはすでに使われています' }
-    validates :password, presence: { message: 'パスワードを入力してください' }, length: { minimum: 6, message: 'パスワードは6文字以上で入力してください' }, if: -> { new_record? || !password.nil? }
+    validates :email, presence: { message: 'メールアドレスを入力してください' }, uniqueness: { case_sensitive: false, message: 'メールアドレスはすでに使用されています' }
+    validates :password, presence: { message: 'パスワードを入力してください' }, length: { minimum: 6, message: 'パスワードは6文字以上で入力してください' }
     #validates :password_confirmation, presence: true, if: -> { new_record? || password.nil? }
     #validate :password_confirmation_matches
     
