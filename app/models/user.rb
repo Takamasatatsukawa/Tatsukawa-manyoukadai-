@@ -8,8 +8,8 @@ class User < ApplicationRecord
     validates :name, presence: { message: '名前を入力してください' }
     validates :email, presence: { message: 'メールアドレスを入力してください' }, uniqueness: { message: 'メールアドレスはすでに使用されています' }
     validates :password, presence: { message: 'パスワードを入力してください' }, length: { minimum: 6, message: 'パスワードは6文字以上で入力してください' }, if: -> { new_record? || !password.nil? }
-    validates :password_confirmation, presence: true, if: -> { new_record? || !password.nil? }
-    validate :password_confirmation_matches
+    #validates :password_confirmation, presence: true, if: -> { new_record? || password.nil? }
+    #validate :password_confirmation_matches
     
     validate :ensure_an_admin_remains, on: :update
     
