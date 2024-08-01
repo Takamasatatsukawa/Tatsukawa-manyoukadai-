@@ -2,28 +2,34 @@
  require 'rails_helper'
 
  RSpec.describe 'ユーザ管理機能', type: :system do
-     let!(:admin) { FactoryBot.create(:user, :admin, name: 'Admin', email: 'admin@example.com') }
+   let!(:admin) { FactoryBot.create(:user, :admin, name: 'Admin', email: 'admin@example.com') }
      let!(:user) { FactoryBot.create(:user, name: 'User', email: 'user@example.com') }
      let!(:task) { FactoryBot.create(:task, user: admin)}
 
+    
      before do
          puts "Admin ID: #{admin.id}"
          puts "User ID: #{user.id}"
        end
 
-     def login_as(email, password)
+    def login_as(email, password)
      visit new_session_path
-     fill_in 'メールアドレス', with: email
-     fill_in 'パスワード', with: password
-     click_button 'Log in'
+     fill_in 'email', with: email
+     fill_in 'password', with: password
+     click_button 'ログイン', id: "create-session"
+
    end
 
    describe '登録機能' do
+    
      context 'ユーザを登録した場合' do
-         before do
-             login_as('admin@example.com', 'password')
-           end
-       it 'タスク一覧画面に遷移する' do
+      before do
+        visit new_session_path
+        fill_in 'email', with: admin.email
+        fill_in 'password', with: admin.password
+        click_button 'ログイン', id: "create-session"
+      end
+        it 'タスク一覧画面に遷移する' do
          visit new_admin_user_path
          fill_in '名前', with: 'Test User'
          fill_in 'メールアドレス', with: 'test@example.com'
@@ -135,50 +141,3 @@
      end
    end
  end
-
- # require 'rails_helper'
-
-# RSpec.describe '管理者機能', type: :system do
-#   let!(:admin) { FactoryBot.create(:user, :admin, email: 'admin@example.com', password: 'password') }
-#   let!(:user) { FactoryBot.create(:user, name: 'User', email: 'user@example.com', password: 'password') }
-
-#   def login_as_admin
-#     visit new_session_path
-#     fill_in 'メールアドレス', with: 'admin@example.com'
-#     fill_in 'パスワード', with: 'password'
-#     click_button 'ログイン'
-#   end
-
-#   describe 'ユーザ一覧画面へのリンクが正しい' do
-#   before do
-#     login_as_admin
-#   end
-
-#   #  before do
-#   #    login_as('admin@example.com', 'password')
-#   #  end
-
-#   #  describe '管理者用のルーティングの確認' do
-#      it 'ユーザ一覧画面へのリンクが正しい' do
-#        visit admin_users_path
-#        expect(page).to have_current_path(admin_users_path)
-#      end
-
-#      it 'ユーザ登録画面へのリンクが正しい' do
-#        visit new_admin_user_path
-#        click_on '登録する'
-#        expect(page).to have_content('ユーザー登録ページ')
-#      end
-
-#      it 'ユーザ詳細画面へのリンクが正しい' do
-#        visit admin_user_path(user)
-#        click_link '戻る'
-#        expect(page).to have_content('ユーザー詳細ページ')
-#      end
-
-#      it 'ユーザ編集画面へのリンクが正しい' do
-#        visit edit_admin_user_path(user)
-#        expect(page).to have_content('ユーザ編集ページ')
-#     end
-#   end
-# end

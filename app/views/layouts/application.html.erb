@@ -1,39 +1,58 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>MyApp</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html="ja">
+<head>
+  <title>Task App</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_pack_tag 'application' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <header>
-      <nav>
-        <ul>
-          <% if logged_in? %>
-            <% if current_user.admin? %>
-              <li><%= link_to 'ユーザ一覧', admin_users_path, id: 'users-index' %></li>
-              <li><%= link_to 'ユーザを登録する', new_admin_user_path, id: 'add-user' %></li>
-            <% end %>
-            <li><%= link_to 'タスク一覧', tasks_path %></li>
-            <li><%= link_to 'タスクを登録する', new_task_path %></li>
-            <li><%= link_to 'アカウント設定', user_path(current_user.id), id: 'account-setting' %></li>
-            <li><%= link_to 'ログアウト', logout_path, method: :delete, id: 'sign-out' %></li>
-          <% else %>
-            <li><%= link_to 'アカウント登録', new_user_path, id: 'sign-up' %></li>
-            <li><%= link_to 'ログイン', new_session_path, id: 'sign-in' %></li>
+<body>
+  <header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Task App</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav"> 
+        <% if logged_in? %>
+          <% if current_user.admin? %>
+        <li class="nav-item mr-3">
+         <li class="nav-item"><%= link_to 'ユーザ一覧', admin_users_path, id: 'users-index' %></li>
+         <li class="nav-item mr-3">
+         <li class="nav-item"><%= link_to 'ユーザを登録する', new_admin_user_path, id: 'add-user' %></li>
           <% end %>
-        </ul>
-      </nav>
-    </header>
+          <li class="nav-item mr-3">
+          <li class="nav-item"><%= link_to 'タスク一覧', tasks_path %></li>
+          <li class="nav-item mr-3">
+          <li class="nav-item"><%= link_to 'タスクを登録する', new_task_path %></li>
+          <li class="nav-item mr-3">
+          <li><%= link_to 'ラベル一覧', labels_path, id: 'labels-index' %></li>
+          <li class="nav-item mr-3">
+          <li><%= link_to 'ラベルを登録する', new_label_path, id: 'new-label' %></li>
+          <li class="nav-item mr-3">
+          <li class="nav-item"><%= link_to 'アカウント設定', user_path(current_user.id), id: 'account-setting' %></li>
+          <li class="nav-item mr-3">
+          <li class="nav-item"><%= link_to 'ログアウト', logout_path, method: :delete, id: 'sign-out' %></li>
+        <% else %>
+          <li class="nav-item"><%= link_to 'アカウント登録', new_user_path, id: 'sign-up' %></li>
+          <li class="nav-item mr-3">
+          <li class="nav-item"><%= link_to 'ログイン', new_session_path, id: 'sign-in' %></li>
+        <% end %>
+    </nav>
+  </header>
 
-    <% flash.each do |key, value| %>
-      <div class="flash <%= key %>"><%= value %></div>
-    <% end %>
+  <div class="container">
+  
 
-    <%= yield %>
-  </body>
+  <% flash.each do |key, value| %>
+    <div class="flash <%= key %>"><%= value %></div>
+  <% end %>
+
+  <%= yield %>
+  </div>
+</body>
 </html>

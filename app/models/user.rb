@@ -1,5 +1,6 @@
 class User < ApplicationRecord
     has_secure_password
+    has_many :labels, dependent: :destroy
    
     before_update :ensure_an_admin_remains_on_update
     has_many :tasks, dependent: :destroy

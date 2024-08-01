@@ -1,4 +1,9 @@
-<h1><%= t("views.tasks.new.new_task") %></h1>
+ <div class="container">
+  <div class="row">
+    <div class="mb3">
+     <h1><%= t("views.tasks.new.new_task") %></h1>
+    </div>
+  </div>
 
 <%= form_with(model: @task, local: true) do |form| %>
     <% if @task.errors.any? %>
@@ -13,28 +18,49 @@
   <% end %>
 
 
-  <div class="field">
+  <div class="form-group">
+   <div class="mb-3 field">
     <%= form.label :title, t('views.tasks.new.title') %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: 'form-control' %>
+   </div>
   </div>
-  <div class="field">
+
+  <div class="form-group">
+   <div class="mb-3 field">
     <%= form.label :content, t('views.tasks.new.content') %>
-    <%= form.text_area :content %>
-  </div>
-  <div class="field">
-    <%= form.label :deadline_on, t("activerecord.attributes.task.deadline_on") %>
-    <%= form.date_field :deadline_on %>
+    <%= form.text_area :content, class: 'form-control' %>
+   </div>
   </div>
 
-  <div class="field">
-    <%= form.label :priority, t("activerecord.attributes.task.priority") %>
-    <%= form.select :priority, options_for_select(Task.priorities.keys.map { |k| [I18n.t("enums.task.priority.#{k}"), k] }, selected: nil), include_blank: true %>
-    </div>
 
-  <div class="field">
+   <div class="mb-3 field">
+    <%= form.label :deadline_on, t("activerecord.attributes.task.deadline_on"), class: 'form-label' %>
+    <%= form.date_field :deadline_on, class: 'form-control' %>
+   </div>
+
+  <div class="form-group flex-fill mb-2 mr-2">
+  
+    <%= form.label :priority, t("activerecord.attributes.task.priority"), class: 'form-label' %>
+    <%= form.select :priority, options_for_select(Task.priorities.keys.map { |k| [I18n.t("enums.task.priority.#{k}"), k] }, selected: nil),{include_blank: true}, {class: 'form-control'} %>
+  </div>
+
+  <div class="form-group flex-fill mb-2 mr-2">
+   <div class="mb-3 field">
     <%= form.label :status, t("activerecord.attributes.task.status") %>
-    <%= form.select :status, options_for_select(Task.statuses.keys.map { |k| [I18n.t("enums.task.status.#{k}"), k] }, selected: nil), include_blank: true %>
-    </div>
+    <%= form.select :status, options_for_select(Task.statuses.keys.map { |k| [I18n.t("enums.task.status.#{k}"), k] }, selected: nil), {include_blank: true}, {class: 'form-control'} %>
+   </div>
+  </div>
+
+  <div class="form-group">
+   <div class="mb-3 field">
+    <%= form.label :label_ids, 'ラベル' %><br>
+    <% @labels.each do |label| %>
+     <div class="form-check">
+     <%= form.check_box :label_ids, { multiple: true, class: 'form-check-input' }, label.id, nil %>
+      <%= label_tag "label_ids_#{label.id}", label.name, class: 'form-check-label' %>
+      </div>
+    <% end %>
+  </div>
 
   <div class="actions">
     <%= form.submit t('views.tasks.new.create_task'), id: 'create_task' %>
@@ -44,3 +70,4 @@
 <% end %>
 
 <%= link_to t('views.tasks.new.back'), tasks_path, id: 'back' %>
+</div>

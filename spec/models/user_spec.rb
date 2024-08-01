@@ -34,7 +34,7 @@ RSpec.describe 'ユーザモデル機能', type: :model do
       it 'バリデーションに失敗する' do
         user = User.new(name: 'テスト', email: 'test@nelf.com', password: 'password', password_confirmation: 'password')
         expect(user).not_to be_valid
-        expect(user.errors[:email]).to include('メールアドレスはすでに使われています')
+        expect(user.errors[:email]).to include('メールアドレスはすでに使用されています')
       end
     end
 

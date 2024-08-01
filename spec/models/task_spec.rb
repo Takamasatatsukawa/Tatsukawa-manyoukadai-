@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'タスクモデル機能', type: :model do
+  let!(:user) { create(:user) }
+
   describe 'バリデーションのテスト' do
     context 'タスクのタイトルが空文字の場合' do
       it 'バリデーションに失敗する' do
@@ -18,7 +20,8 @@ RSpec.describe 'タスクモデル機能', type: :model do
 
     context 'タスクのタイトルと説明に値が入っている場合' do
       it 'タスクを登録できる' do
-        task = Task.new(title: '企画書', content: '企画書を作成する。', deadline_on: '2022-02-18', priority: 2, status: 'todo')
+        
+        task = Task.new(title: '企画書', content: '企画書を作成する。', deadline_on: '2022-02-18', priority: 2, status: 'todo', user: user)
         expect(task).to be_valid
       end
     end
@@ -26,9 +29,9 @@ RSpec.describe 'タスクモデル機能', type: :model do
 
   describe '検索機能' do
     before do
-      @first_task = Task.create(title: 'first_task', content: 'content1', deadline_on: '2022-02-18', priority: :medium, status: 'todo')
-      @second_task = Task.create(title: 'second_task', content: 'content2', deadline_on: '2022-02-17', priority: :high, status: 'in_progress')
-      @third_task = Task.create(title: 'third_task', content: 'content3', deadline_on: '2022-02-16', priority: :low, status: 'done')
+      @first_task = Task.create(title: 'first_task', content: 'content1', deadline_on: '2022-02-18', priority: :medium, status: 'todo', user: user)
+      @second_task = Task.create(title: 'second_task', content: 'content2', deadline_on: '2022-02-17', priority: :high, status: 'in_progress', user: user)
+      @third_task = Task.create(title: 'third_task', content: 'content3', deadline_on: '2022-02-16', priority: :low, status: 'done', user: user)
     end
 
     context 'scopeメソッドでタイトルのあいまい検索をした場合' do

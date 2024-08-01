@@ -31,5 +31,8 @@ module CdpWebManyoTask
         request_specs: false
     end
     config.i18n.default_locale = :ja
+
+    # Custom error pages
+    config.exceptions_app = self.routes
   end
 end

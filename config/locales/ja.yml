@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       task: "タスク"
+      label: "ラベル"
       index: "一覧画面"
       show: "詳細"
       new: "登録"
@@ -19,6 +20,9 @@ ja:
         edit: "編集"
         destroy: "削除"
         confirm_delete: "本当に削除してもよろしいですか？"
+      label:
+        name: "ラベル名"
+        user: "ユーザー"
       user:
         name: "名前"
         email: "メールアドレス"
@@ -34,6 +38,14 @@ ja:
               blank: "優先度を入力してください"
             status:
               blank: "ステータスを入力してください"
+            title:
+              blank: "タイトルを入力してください"
+            content:
+              blank: "内容を入力してください"
+        label:
+          attributes:
+            user:
+              required: "ユーザーは必須です"
         user:
           attributes:
             name:
@@ -56,7 +68,7 @@ ja:
       too_long: "は%{count}文字以下で入力してください"
       taken: "はすでに存在します"
       record_invalid: "レコードの検証に失敗しました"
-
+      required: "このフィールドは必須です"
   flash:
     tasks:
       create:
@@ -70,11 +82,9 @@ ja:
         failure: "タスクの削除に失敗しました"
   confirm:
     delete: "本当に削除してよろしいですか？"
-
   navigation:
     tasks_index: "タスク一覧"
     new_task: "タスクを登録する"
-
   enums:
     task:
       priority:
@@ -85,7 +95,6 @@ ja:
         todo: "未着手"
         in_progress: "着手中"
         done: "完了"
-
   views:
     tasks:
       new:

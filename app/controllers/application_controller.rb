@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
     helper_method :current_user, :logged_in?
     before_action :require_login
-    
+    rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
     private
 
@@ -37,5 +37,8 @@ class ApplicationController < ActionController::Base
       flash[:notice] = "ログインしてください"
       redirect_to new_session_path
     end
+  end
+  def render_404
+    render file: "#{Rails.root}/public/404.html", status: 404, layout: false
   end
 end
